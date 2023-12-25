@@ -1,9 +1,12 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class employeeImplementation implements employeeCRUD {
+public abstract class employeeImplementation implements employeeCRUD {
     private Connection connection;
 
     public employeeImplementation(Connection connection) {
@@ -41,13 +44,43 @@ public class employeeImplementation implements employeeCRUD {
         return null;
     }
 
+
+
     @Override
-    public void updateEmployee(int id) {
+    public void updateEmployee(int id, employee employee) {
+        try (PreparedStatement statement= connection.prepareStatement("UPDATE employee SET id=? name= ? email=? salary=? WHERE id=?")){
+            statement.setInt(1,employee.getId());
+            statement.setString(2,employee.getName());
+            statement.setString(3,employee.getEmail());
+            statement.setLong(4,employee.getSalary());
+            statement.executeUpdate();
+            System.out.println("Employee Successfully Update");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
     @Override
-    public List<employee> viewEmployee() {
+    public Scanner viewEmployee() {
+        List<employee> employeeList=new ArrayList<>();
+        try (PreparedStatement statement=connection.prepareStatement("SELECT *FROM employee")){
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()){
+                    int id =rs.getInt("id");
+                    String name=rs.getString("name");
+                    String email=rs.getString("email");
+                    long salary=rs.getLong("salary");
+                    employee employee=new employee(name,email,salary);
+                    employeeList.add(employee);
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
 
     }

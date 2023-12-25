@@ -1,8 +1,11 @@
-import java.util.List;
+import java.util.Scanner;
 
 public interface employeeCRUD {
     void addEmployee(employee employee);
     employee removeEmployeeid(int id);
     void updateEmployee(int id);
-    List<employee> viewEmployee();
+
+    void updateEmployee(int id, employee employee);
+
+    Scanner viewEmployee();
 }
