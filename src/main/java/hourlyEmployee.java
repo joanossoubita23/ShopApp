@@ -17,11 +17,11 @@ public class hourlyEmployee extends  employee{
     }
 
     public hourlyEmployee(String name, String email, long salary, int id, int hourWork) {
-        super(name, email, salary, id);
+        super(name, email, salary);
         this.hourWork = hourWork;
     }
 
     public hourlyEmployee(String name, String email, long salary, int id) {
-        super(name, email, salary, id);
+        super(name, email, salary);
     }
 }

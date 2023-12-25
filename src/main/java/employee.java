@@ -46,7 +46,7 @@ public class employee {
                 '}';
     }
 
-    public employee(String name, String email, long salary, int id) {
+    public employee(String name, String email, long salary) {
         this.name = name;
         this.email = email;
         this.salary = salary;

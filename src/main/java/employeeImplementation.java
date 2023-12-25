@@ -10,6 +10,10 @@ public class employeeImplementation implements employeeCRUD {
         this.connection = connection;
     }
 
+    public employeeImplementation() {
+
+    }
+
     @Override
     public void addEmployee(employee employee) {
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO employee(name,email,salary) VALUES(?,?,?)")){
@@ -25,7 +29,15 @@ public class employeeImplementation implements employeeCRUD {
     }
 
     @Override
-    public employee removeEmployee() {
+    public employee removeEmployeeid(int id) {
+        try (PreparedStatement statement= connection.prepareStatement("DELETE FROM employee WHERE id=?")) {
+            statement.setInt(1,id);
+            statement.executeUpdate();
+            System.out.println("Employee Successfully Removed");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
@@ -37,5 +49,11 @@ public class employeeImplementation implements employeeCRUD {
     @Override
     public List<employee> viewEmployee() {
         return null;
+
     }
-}
+
+
+
+    }
+
+
